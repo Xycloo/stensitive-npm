@@ -1,10 +1,10 @@
-<img src="https://pbs.twimg.com/profile_images/1528350631215390720/7ZVZQlmR_400x400.jpg" width="600"/>
+<img src="https://pbs.twimg.com/profile_images/1528350631215390720/7ZVZQlmR_400x400.jpg" width="400"/>
 
 # Stensitive npm package
 
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/joaomlourenco/novathesis/graphs/commit-activity)
-[![made-with-js](https://img.shields.io/badge/Made%20with-JS-1f425f.svg?color=green)](https://www.latex-project.org/)
-[![Stellar](https://img.shields.io/badge/Built-on-Stellar%20v1.3c-green.svg)](https://www.latex-project.org/lppl/lppl-1-3c)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)]()
+[![made-with-js](https://img.shields.io/badge/Made%20with-javascript-1f425f.svg?color=green)]()
+[![built-on-stellar](https://img.shields.io/badge/Built-on-Stellar%20v1.3c-green.svg)]()
 
 
 --------
