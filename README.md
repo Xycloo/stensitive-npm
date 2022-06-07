@@ -38,14 +38,12 @@ To install, open your working directory on your terminal and type:
 
 And that's it.
 
-### Usage
-
 We will split this quick guide in three sections:
 1. Setup
 2. Store data
 3. Read stored data
 
-#### Setup
+### Setup
 
 You will need to import the stensitive module:
 
@@ -63,7 +61,7 @@ Furthermore, you will have to either install the StellarSDK or load it through a
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stellar-sdk/10.1.0/stellar-sdk.js"></script>
 ```
 
-#### Store data
+### Store data
 
 This process can be splitted in three:
 1. Get the encryption transaction.
@@ -71,7 +69,7 @@ This process can be splitted in three:
 3. Upload the data.
 
 
-##### Get encryption transaction
+#### Get encryption transaction
 The user will need to sign an encryption transaction. This transaction is obtained with:
 
 ```js
@@ -86,7 +84,7 @@ You are giving this function 4 arguments:
 
 This transaction is then to be signed by the user with the desired wallet.
 
-##### Encrypt the data
+#### Encrypt the data
 
 This is the step of actually encrypting the data, which will use the signed encryption tx:
 
@@ -104,7 +102,7 @@ You are giving this function 5 arguments:
 This function will also take care of uploading the encrypted data to IPFS, in fact the function will return the IPFS hash from which you'll be able to fetch the encrypted data.
 
 
-##### Storing the data
+#### Storing the data
 
 This last step consists in adding the IPFS hash we obtained as a data attribute in the user's account:
 
@@ -127,7 +125,7 @@ StensitiveAgent.sumbitStellarSignedTX(signedUploadTx).then(response => {
 })
 ```
 
-#### Example with XBull wallet
+### Example of storing data with XBull wallet
 
 Now let's take a look at an example of storing wallet-encrypted data that uses the XBull wallet.
 
@@ -164,3 +162,31 @@ StensitiveAgent.sumbitStellarSignedTX(signedUploadTx).then(response => {
 	// do something with the response
 })
 ```
+
+### Read the data
+
+This will be easier and faster, we split this process in two:
+1. get the encryption transaction.
+2. retrieve and decode the data.
+
+#### Get the encryption transaction
+The user will need to sign an encryption transaction. This transaction is obtained with:
+
+```js
+const tx = await StensitiveAgent.encryptionTX({user public key}, {user-chosen pin}, {stellar network}, {StellarSdk});
+```
+
+You are giving this function 4 arguments:
+- The user public key, which is the Stellar public key of the user that wants to encrypt and upload the data
+- The user-chosen pin, which is a numeric pin that is inputed by the user. This is the key point of the security of stensitive, but it offers further security.
+- The stellar network to use, for example "TESTNET".
+- The stellar sdk. As of now, stensitive requires to pass the desired verision of the Stellar SDK. We may change this design in the future.
+
+This transaction is then to be signed by the user with the desired wallet.
+
+#### Retrieve and decode the data
+
+```js
+const decrypted = await StensitiveAgent.decryptData({user public key}, {data name}, {stellar network}, {signed encryption transaction}, {StellarSdk})
+```
+The data is now decrypted.
