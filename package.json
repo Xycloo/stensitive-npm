@@ -1,0 +1,11 @@
+{
+  "name": "stensitive",
+  "version": "1.0.23",
+  "description": "Store sensitive data securely on the Stellar blockchain",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tommaso De Ponti - Xycloo",
+  "license": "ISC"
+}
