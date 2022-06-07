@@ -207,4 +207,4 @@ However developers might want to expand this technology and only use the raw enc
 
 ## Learn more
 
-To learn about the technical details of stensitive, you can read the [whitepaper]()
+To learn about the technical details of stensitive, you can read the [whitepaper](https://raw.githubusercontent.com/Xycloo/stensitive-npm/main/sten.pdf).
