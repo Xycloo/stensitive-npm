@@ -57,13 +57,22 @@ If you whish to use an horizon endpoint wich is not the testnet:
 StensitiveAgent.setHorizon("horizon base url") // Example: "horizon-testnet.stellar.org"
 ```
 
+Furthermore, you will have to either install the StellarSDK or load it through a script tag (the below tag requests version 10.1.0, always stay up-to-date with the stellar versions):
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stellar-sdk/10.1.0/stellar-sdk.js"></script>
+```
+
 #### Store data
 
-This process can be splitted in two:
-1. Encrypt the data
-2. Upload the data
+This process can be splitted in three:
+1. Get the encryption transaction.
+2. Encrypt the data.
+3. Upload the data.
 
-To encrypt the data, the user will first need to sign an encryption transaction. This transaction is obtained with:
+
+##### Get encryption transaction
+The user will need to sign an encryption transaction. This transaction is obtained with:
 
 ```js
 const tx = await StensitiveAgent.encryptionTX({user public key}, {user-chosen pin}, {stellar network}, {StellarSdk});
@@ -73,4 +82,85 @@ You are giving this function 4 arguments:
 - The user public key, which is the Stellar public key of the user that wants to encrypt and upload the data
 - The user-chosen pin, which is a numeric pin that is inputed by the user. This is the key point of the security of stensitive, but it offers further security.
 - The stellar network to use, for example "TESTNET".
-- The stellar sdk. As of now, stensitive requires to pass the desired
+- The stellar sdk. As of now, stensitive requires to pass the desired verision of the Stellar SDK. We may change this design in the future.
+
+This transaction is then to be signed by the user with the desired wallet.
+
+##### Encrypt the data
+
+This is the step of actually encrypting the data, which will use the signed encryption tx:
+
+```js
+const ipfsHash = await StensitiveAgent.encryptData({signed transaction}, {data name}, {data}, {stellar network}, {StellarSdk});
+```
+
+You are giving this function 5 arguments:
+- The signed encryption transaction.
+- The name of the data to store and encrypt.
+- The data you want to store and encrypt.
+- The stellar network to use, for example "TESTNET".
+- The stellar sdk. As of now, stensitive requires to pass the desired verision of the Stellar SDK. We may change this design in the future.
+
+This function will also take care of uploading the encrypted data to IPFS, in fact the function will return the IPFS hash from which you'll be able to fetch the encrypted data.
+
+
+##### Storing the data
+
+This last step consists in adding the IPFS hash we obtained as a data attribute in the user's account:
+
+```js
+const uploadTX = await StensitiveAgent.storeData({user public key}, {data name}, {ipfs hash}, {stellar network}, {StellarSdk});
+```
+
+You are giving this function 5 arguments:
+- The public key of the user
+- The name of the data to store and encrypt.
+- The ipfs hash we obtained with the previous step
+- The stellar network to use, for example "TESTNET".
+- The stellar sdk. As of now, stensitive requires to pass the desired verision of the Stellar SDK. We may change this design in the future.
+
+Then, we will have to sign and submit this transaction in order for the changes to be applied on the Stellar network:
+
+```js
+StensitiveAgent.sumbitStellarSignedTX(signedUploadTx).then(response => {
+	// do something with the response
+})
+```
+
+#### Example with XBull wallet
+
+Now let's take a look at an example of storing wallet-encrypted data that uses the XBull wallet.
+
+```js
+// define data to store
+let data = "some data"
+let name = "some data name"
+let pin = 12345
+    
+
+// get wallet permissions
+const permissions = await xBullSDK.connect({
+      canRequestPublicKey: true,
+      canRequestSign: true
+});
+
+// get public key of the user
+const userPK = await xBullSDK.getPublicKey();
+
+// generate the encryption transaction and sign it
+const tx = await StensitiveAgent.encryptionTX(userPK, pin, "TESTNET", StellarSdk);
+const signedTransaction = await xBullSDK.signXDR(tx, {
+	publicKey: userPK,
+	network: StellarSdk.Networks.TESTNET
+});
+
+// get the ipfs hash of our encrypted data
+const ipfsHash = await StensitiveAgent.encryptData(signedTransaction, name, data, "TESTNET", StellarSdk);
+
+// build the transaction to store the Ipfs hash on the user's account, sign it, and submit it
+const uploadTX = await StensitiveAgent.storeData(userPK, name, ipfsHash, "TESTNET", StellarSdk);
+const signedUploadTx = await xBullSDK.signXDR(uploadTX)
+StensitiveAgent.sumbitStellarSignedTX(signedUploadTx).then(response => {
+	// do something with the response
+})
+```
