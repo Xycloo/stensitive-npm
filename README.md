@@ -38,7 +38,7 @@ You can use stensitive with any stellar wallet as long as it can sign transactio
 
 To install, open your working directory on your terminal and type:
 
-```js
+```
 npm install stensitive
 ```
 
@@ -53,7 +53,9 @@ We will split this quick guide in three sections:
 
 You will need to import the stensitive module:
 
-`import StensitiveAgent from "stensitive"`
+```js
+import StensitiveAgent from "stensitive"
+```
 
 If you whish to use an horizon endpoint wich is not the testnet:
 
