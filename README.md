@@ -1,6 +1,6 @@
 <img src="https://pbs.twimg.com/profile_images/1528350631215390720/7ZVZQlmR_400x400.jpg" width="200"/>
 
-# Stensitive npm package
+# 📦 Stensitive npm package 📦
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)]()
 [![made-with-js](https://img.shields.io/badge/Made%20with-javascript-1f425f.svg?color=green)]()
@@ -12,6 +12,10 @@
 
 * [About](#about)
 * [Getting Started](#getting-started)
+  * [Installation](#installation)
+  * [Setup](#setup)
+  * [Store data](#store-data)
+  * [Read data](#read-the-data)
 * [Things to keep in mind](#notice)
 	* [Never submit the encryption transaction](#encryption-transaction)
 	* [Speed](#speed)
@@ -190,3 +194,17 @@ This transaction is then to be signed by the user with the desired wallet.
 const decrypted = await StensitiveAgent.decryptData({user public key}, {data name}, {stellar network}, {signed encryption transaction}, {StellarSdk})
 ```
 The data is now decrypted.
+
+## Notice
+
+### Encryption transaction
+Never submit the encryption trasnaction since it may expose your data.
+
+### Speed
+This technology is based upon havin to fetch the horizon api multiple times and signing transaction. This means that this solution might not be the best if you are looking forward an extremely fast product.
+
+However developers might want to expand this technology and only use the raw encryption/decrytion mechanism with a wallet and keep the encrypted data on a database wich will result in a much faster experience.
+
+## Learn more
+
+To learn about the technical details of stensitive, you can read the [whitepaper]()
