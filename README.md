@@ -1,10 +1,10 @@
-<img src="https://pbs.twimg.com/profile_images/1528350631215390720/7ZVZQlmR_400x400.jpg" width="400"/>
+<img src="https://pbs.twimg.com/profile_images/1528350631215390720/7ZVZQlmR_400x400.jpg" width="200"/>
 
 # Stensitive npm package
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)]()
 [![made-with-js](https://img.shields.io/badge/Made%20with-javascript-1f425f.svg?color=green)]()
-[![built-on-stellar](https://img.shields.io/badge/Built-on-Stellar%20v1.3c-green.svg)]()
+[![built-on-stellar](https://img.shields.io/badge/Built%20with-stellar-1f425f.svg?color=green)]()
 
 
 --------
