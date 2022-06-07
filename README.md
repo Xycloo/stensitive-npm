@@ -38,7 +38,9 @@ You can use stensitive with any stellar wallet as long as it can sign transactio
 
 To install, open your working directory on your terminal and type:
 
-`npm install stensitive`
+```js
+npm install stensitive
+```
 
 And that's it.
 
