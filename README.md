@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/Xycloo/svelte-frontend/main/static/logo_.png?token=GHSAT0AAAAAABUJTBSFXOU2ABQTDKSR6DU4YU66W4Q" width="600"/>
+<img src="https://pbs.twimg.com/profile_images/1528350631215390720/7ZVZQlmR_400x400.jpg" width="600"/>
 
 # Stensitive npm package
 
